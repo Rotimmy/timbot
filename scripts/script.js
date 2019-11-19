@@ -303,7 +303,8 @@
 
 var lulz = ['lololol', 'rofl', 'lmao', 'bwhahahaha!', 'bwahahahachaHachahaha!', '😂', '🤣'],
 beeReactions = ['Bees? Did you say bees? I do NOT like bees.', 'Please do not mention bees. It makes me very upset.', 'Bees are evil flying robot soldiers hellbent on world domination. They must be stopped or there will only be flowers and honey left in the world.'],
-greetings = ['Hayoooooooooooooo', 'Oh hello', 'Wuzuuuuuuuuuup', 'I missed you']
+greetings = ['Hayoooooooooooooo', 'Oh hello', 'Wuzuuuuuuuuuup', 'I missed you'],
+gifs = ['https://gph.is/1a286dP', 'https://gph.is/2HR5LLA', 'https://gph.is/2le2YUK', 'https://gph.is/1cchs6R', 'https://gph.is/YBbvez', 'https://gph.is/1s0uId3'];
 
 const capitals = [
   {
@@ -508,6 +509,11 @@ const capitals = [
   }
 ];
 
+const giphy = {
+  api_key: process.env.ok9HtfYh8mkXJxrEx1E9AkcaPUlMZ2eY,
+  base_url: 'http://api.giphy.com/v1'
+};
+
 module.exports = function(bot){
 
   bot.hear(/lol|haha/i, function(res){
@@ -537,8 +543,36 @@ module.exports = function(bot){
 
   });
 
-  // bot.respond(/who is in this channel/i, function(res){
-  //   return res.send(bot.brain.users());
-  // })
+  bot.respond(/nature me/i, function(res){
+    return res.send(res.random(gifs));
+  });
+
+  // bot.respond(/(gif|giphy)( me)? (.*)/i, msg => giphyMe(msg, msg.match[3], url => msg.send(url)));
+  //
+  // var giphyMe = function(msg, query, cb) {
+  //   const endpoint = '/gifs/search';
+  //   const url = `${giphy.base_url}${endpoint}`;
+  //
+  //   return msg.http(url)
+  //     .query({
+  //       q: query,
+  //       api_key: giphy.api_key}).get()(function(err, res, body) {
+  //       let response = undefined;
+  //       try {
+  //         response = JSON.parse(body);
+  //         const images = response.data;
+  //         if (images.length > 0) {
+  //           const image = msg.random(images);
+  //           cb(image.images.original.url);
+  //         }
+  //
+  //       } catch (e) {
+  //         response = undefined;
+  //         cb('Error');
+  //       }
+  //
+  //       if (response === undefined) { return; }
+  //   });
+  // };
 
 }
