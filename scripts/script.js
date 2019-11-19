@@ -304,7 +304,33 @@
 var lulz = ['lololol', 'rofl', 'lmao', 'bwhahahaha!', 'bwahahahachaHachahaha!', '😂', '🤣'],
 beeReactions = ['Bees? Did you say bees? I do NOT like bees.', 'Please do not mention bees. It makes me very upset.', 'Bees are evil flying robot soldiers hellbent on world domination. They must be stopped or there will only be flowers and honey left in the world.'],
 greetings = ['Hayoooooooooooooo', 'Oh hello', 'Wuzuuuuuuuuuup', 'I missed you'],
-gifs = ['https://gph.is/1a286dP', 'https://gph.is/2HR5LLA', 'https://gph.is/2le2YUK', 'https://gph.is/1cchs6R', 'https://gph.is/YBbvez', 'https://gph.is/1s0uId3'];
+gifs = ['https://gph.is/1a286dP', 'https://gph.is/2HR5LLA', 'https://gph.is/2le2YUK', 'https://gph.is/1cchs6R', 'https://gph.is/YBbvez', 'https://gph.is/1s0uId3'],
+menu = [
+  {
+    food: "Space Burger",
+    image: "https://gph.is/1a6V7Yk"
+  },
+  {
+    food: "Space Pizza",
+    image: "https://gph.is/16Pa8Te"
+  },
+  {
+    food: "Space Burrito",
+    image: "https://gph.is/1JffQee"
+  },
+  {
+    food: "Space Tacos",
+    image: "https://gph.is/1Qu1Zt3"
+  },
+  {
+    food: "Space Dogs",
+    image: "https://gph.is/1a6URIZ"
+  },
+  {
+    food: "Space Spaghetti with Meatballs",
+    image: "https://gph.is/2k4FIDn"
+  }
+];
 
 const capitals = [
   {
@@ -545,6 +571,24 @@ module.exports = function(bot){
 
   bot.respond(/nature me/i, function(res){
     return res.send(res.random(gifs));
+  });
+
+  bot.respond(/(what's)? for lunch/i, function(res){
+    var listArr = [];
+    for (let i = 0;i < menu.length; i++) {
+        listArr.push(menu[i].food);
+    };
+    var listStr = listArr.join(", ");
+    return res.send("Here's what we have on the meny today: " + listStr);
+  });
+
+  bot.respond(/I'll have the (.*)/i, function(res){
+    var foodOrder = res.match[1];
+    for (let i = 0; i < menu.length; i++) {
+      if (foodOrder == menu[i].food) {
+        return res.reply("Here's your " + foodOrder + ": " + menu[i].image);
+      };
+    };
   });
 
   // bot.respond(/(gif|giphy)( me)? (.*)/i, msg => giphyMe(msg, msg.match[3], url => msg.send(url)));
