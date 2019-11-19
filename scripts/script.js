@@ -304,7 +304,8 @@
 var lulz = ['lololol', 'rofl', 'lmao', 'bwhahahaha!', 'bwahahahachaHachahaha!', '😂', '🤣'],
 beeReactions = ['Bees? Did you say bees? I do NOT like bees.', 'Please do not mention bees. It makes me very upset.', 'Bees are evil flying robot soldiers hellbent on world domination. They must be stopped or there will only be flowers and honey left in the world.'],
 greetings = ['Hayoooooooooooooo', 'Oh hello', 'Wuzuuuuuuuuuup', 'I missed you'],
-gifs = ['https://gph.is/1a286dP', 'https://gph.is/2HR5LLA', 'https://gph.is/2le2YUK', 'https://gph.is/1cchs6R', 'https://gph.is/YBbvez', 'https://gph.is/1s0uId3'],
+natureGifs = ['https://gph.is/1a286dP', 'https://gph.is/2HR5LLA', 'https://gph.is/2le2YUK', 'https://gph.is/1cchs6R', 'https://gph.is/YBbvez', 'https://gph.is/1s0uId3'],
+kittens = ['https://gph.is/17CDHH7','https://gph.is/1qij2QI','https://gph.is/1fcFy88','https://gph.is/11sVNXm','https://gph.is/17gzC8b'],
 menu = [
   {
     food: "Space Burger",
@@ -316,7 +317,7 @@ menu = [
   },
   {
     food: "Space Burrito",
-    image: "https://gph.is/1JffQee"
+    image: "https://gph.is/178xdie"
   },
   {
     food: "Space Tacos",
@@ -547,7 +548,7 @@ module.exports = function(bot){
   })
 
   bot.hear(/try/i, function(res){
-    return res.send('There is no try. There is only do');
+    return res.send('Do or do not. There is no try');
   })
 
   bot.hear(/bees/i, function(res){
@@ -570,7 +571,7 @@ module.exports = function(bot){
   });
 
   bot.respond(/nature me/i, function(res){
-    return res.send(res.random(gifs));
+    return res.send(res.random(natureGifs));
   });
 
   bot.respond(/(what's)? for lunch/i, function(res){
@@ -588,6 +589,17 @@ module.exports = function(bot){
       if (foodOrder == menu[i].food) {
         return res.reply("Here's your " + foodOrder + ": " + menu[i].image);
       };
+    };
+  });
+
+  bot.respond(/kitty @?([\w .\-]+)\?*$/i, function(res) {
+    const name = res.match[1].trim();
+
+    const users = bot.brain.usersForFuzzyName(name);
+    if (users.length === 1) {
+      const user = users[0];
+
+      return res.send("@" + name + " " + res.random(kittens));
     };
   });
 
